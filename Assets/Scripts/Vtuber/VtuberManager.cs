@@ -25,17 +25,17 @@ public class VtuberManager : MonoBehaviour
     private System.Random _random;
     private Coroutine _spawnCoroutine;
 
+    private Dictionary<string, AudioClip> _headAudioDic;
+
     private void Awake()
     {
         Instance = this;
-        _vtuberSpriteList = VtuberSpriteInfos.ToList();
+
         _sceneVtubers = new List<GameObject>();
         _random = new System.Random();
 
-        if (HeadParent == null)
-        {
-            HeadParent = transform;
-        }
+        _vtuberSpriteList = VtuberSpriteInfos.ToList();
+        _headAudioDic = VtuberSpriteInfos.ToDictionary(data => data.Name, data => data.HeadAudio);
     }
 
     private void Start()
@@ -108,6 +108,8 @@ public class VtuberManager : MonoBehaviour
         vtuberData.Body.GetComponent<SpriteRenderer>().sprite = newVtuberSprite.Body;
         vtuberData.GetComponent<AudioSource>().clip = newVtuberSprite.Audio;
 
+        vtuberData.Head.name = newVtuberSprite.Name;
+
         vtuber.SetActive(true);
     }
     #endregion Spawn
@@ -127,6 +129,17 @@ public class VtuberManager : MonoBehaviour
         {
             vtuberData.Boold.Play();
         }
+    }
+
+    public AudioClip GetHeadAudio(string vtuberName)
+    {
+        if (!_headAudioDic.TryGetValue(vtuberName, out var audioClip))
+        {
+            audioClip = null;
+            Debug.LogError($"HeadAudio Is Null @Vtuber = {vtuberName}");
+        }
+
+        return audioClip;
     }
     #endregion Touch
 }
