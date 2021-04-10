@@ -13,7 +13,6 @@ public class VtuberManager : MonoBehaviour
     public int SceneVtuberCountLimit;
 
     public Transform VtuberParent;
-    public Transform HeadParent;
 
     public GameObject VtuberPrefab;
     public VtuberSpriteInfo[] VtuberSpriteInfos;
@@ -117,11 +116,6 @@ public class VtuberManager : MonoBehaviour
     #region Touch
     public void TouchPlayer(VtuberInfo vtuberData)
     {
-        var vtuberHeadTrans = vtuberData.Head.transform;
-        vtuberHeadTrans.SetParent(VtuberManager.Instance.HeadParent);
-        vtuberHeadTrans.transform.localPosition = Vector3.zero;
-
-        vtuberData.Head.SetActive(true);
         vtuberData.Body.SetActive(true);
         vtuberData.FullBody.SetActive(false);
 
