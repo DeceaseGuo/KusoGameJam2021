@@ -14,22 +14,28 @@ public class Player : MonoBehaviour
         DIE
     }
     private State mCurState = State.IDLE;
-    public float mMoveSpeed = 0;
-    //public Transform mHeadPos = null;
+
+    public AudioSource mAudio = null;
+    public float mMoveSpeed = 0;    
     [Header("使用道具僵直")]
     public float mUseItemStiff = 0;
     [Header("位移")]
     public float mDashStiff = 0;
     public float mDashSpeed = 0;
+    [Header("頭")]
+    public Transform mHeadPos = null;
 
-    //private bool mIsHaveHead = false;
     private bool mIsRight = false;
+    private string mHaedName = null;
+    private Transform mCurHeadTransform = null;
     private float mCurDelayStiff = 0;
     private byte mItemCount = 0;
     private Animator mAnim = null;
     private Vector2 mMoveDirection = Vector2.zero;
     private Vector2 mAtkDirection = Vector2.zero;
     private Rigidbody2D mRig = null;
+
+    public AudioClip mAtkAudio = null;    
 
     private void Awake()
     {
@@ -39,7 +45,7 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
-        StateAction();        
+        StateAction();
     }
 
     private void StateAction()
@@ -96,6 +102,7 @@ public class Player : MonoBehaviour
     {
         if (mCurDelayStiff <= 0 && mCurState != State.ATTACK && Input.GetMouseButton(0))
         {
+            mAudio.PlayOneShot(mAtkAudio);
             mRig.velocity = Vector2.zero;
             mAnim.SetTrigger(State.ATTACK.ToString());
             mCurDelayStiff = mDashStiff;
@@ -125,9 +132,23 @@ public class Player : MonoBehaviour
             VtuberInfo aVtuberInfo = iOther.GetComponent<VtuberInfo>();
             if (aVtuberInfo != null)
             {
-                //mHeadPos
-                //aVtuberInfo.Head()
+                if (!string.IsNullOrEmpty(mHaedName))//有頭在手上情況
+                {
+                    Vector3 aCurPos = mCurHeadTransform.position;
+                    mCurHeadTransform.SetParent(null);
+                    mCurHeadTransform.position = aCurPos;
+                }
+
+                HeadPerform aHeadPerform = aVtuberInfo.Head.GetComponent<HeadPerform>();
+                mHaedName = aVtuberInfo.Head.name;
                 VtuberManager.Instance.TouchPlayer(aVtuberInfo);
+                aHeadPerform.ExeCute(() =>
+                {
+                    mCurHeadTransform = aVtuberInfo.Head.transform;
+                    mCurHeadTransform.SetParent(mHeadPos);
+                    mCurHeadTransform.localPosition = Vector3.zero;
+                        //mCurHeadTransform.DOMove(Vector3.zero, .5f);
+                    });
                 mItemCount++;
             }
         }

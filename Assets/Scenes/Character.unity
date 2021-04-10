@@ -671,7 +671,6 @@ MonoBehaviour:
   SpawnRange: 10
   SceneVtuberCountLimit: 10
   VtuberParent: {fileID: 211035935}
-  HeadParent: {fileID: 0}
   VtuberPrefab: {fileID: 1541683284294716095, guid: 0b21791b1f25d3a43a9e0ba539a982ab, type: 3}
   VtuberSpriteInfos:
   - Name: Ahoy
@@ -1193,10 +1192,6 @@ PrefabInstance:
     - target: {fileID: 6093532914746589741, guid: fb92e6202bd4c304383e6675de6bb4a9, type: 3}
       propertyPath: m_Name
       value: Character
-      objectReference: {fileID: 0}
-    - target: {fileID: 6093532916014268931, guid: fb92e6202bd4c304383e6675de6bb4a9, type: 3}
-      propertyPath: m_SortingOrder
-      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fb92e6202bd4c304383e6675de6bb4a9, type: 3}
