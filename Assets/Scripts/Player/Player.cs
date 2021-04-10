@@ -15,11 +15,14 @@ public class Player : MonoBehaviour
     }
     private State mCurState = State.IDLE;
     public float mMoveSpeed = 0;
-
+    //public Transform mHeadPos = null;
+    [Header("使用道具僵直")]
+    public float mUseItemStiff = 0;
     [Header("位移")]
     public float mDashStiff = 0;
     public float mDashSpeed = 0;
 
+    //private bool mIsHaveHead = false;
     private bool mIsRight = false;
     private float mCurDelayStiff = 0;
     private byte mItemCount = 0;
@@ -53,10 +56,8 @@ public class Player : MonoBehaviour
                 mRig.velocity = mAtkDirection * mDashSpeed;
                 break;
             case State.USEITEM:
-
                 break;
             case State.DIE:
-
                 break;
             default:
                 break;
@@ -98,18 +99,23 @@ public class Player : MonoBehaviour
             mRig.velocity = Vector2.zero;
             mAnim.SetTrigger(State.ATTACK.ToString());
             mCurDelayStiff = mDashStiff;
-            mAtkDirection = (Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position)).normalized;
-            if ((!mIsRight && mAtkDirection.x > 0) || (mIsRight && mAtkDirection.x < 0))
-            {
-                Flip();
-            }
+            SetAtkDirection();
             ChangeStep(State.ATTACK);
         }
     }
 
     private void StepUseItem()
     {
-
+        if (mItemCount > 0 && mCurDelayStiff <= 0 && mCurState != State.USEITEM && Input.GetMouseButton(0))
+        {
+            mItemCount--;
+            mRig.velocity = Vector2.zero;
+            mCurDelayStiff = mUseItemStiff;
+            mAtkDirection = (Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position)).normalized;
+            SetAtkDirection();
+            //使用道具動畫
+            ChangeStep(State.USEITEM);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D iOther)
@@ -119,13 +125,22 @@ public class Player : MonoBehaviour
             VtuberInfo aVtuberInfo = iOther.GetComponent<VtuberInfo>();
             if (aVtuberInfo != null)
             {
-                Debug.Log("Get");
+                //mHeadPos
+                //aVtuberInfo.Head()
+                VtuberManager.Instance.TouchPlayer(aVtuberInfo);
+                mItemCount++;
             }
-
-            Debug.Log("Trigger Enter");
         }
     }
 
+    private void SetAtkDirection()
+    {
+        mAtkDirection = (Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position)).normalized;
+        if ((!mIsRight && mAtkDirection.x > 0) || (mIsRight && mAtkDirection.x < 0))
+        {
+            Flip();
+        }
+    }
     private void Flip()
     {
         mIsRight = !mIsRight;
