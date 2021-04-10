@@ -21,7 +21,8 @@ public class Player : MonoBehaviour
     public float mDashSpeed = 0;
 
     private bool mIsRight = false;
-    private float mCurDashStiff = 0;
+    private float mCurDelayStiff = 0;
+    private byte mItemCount = 0;
     private Animator mAnim = null;
     private Vector2 mMoveDirection = Vector2.zero;
     private Vector2 mAtkDirection = Vector2.zero;
@@ -69,7 +70,7 @@ public class Player : MonoBehaviour
 
     private void StepMove()
     {
-        if (mCurDashStiff <= 0)
+        if (mCurDelayStiff <= 0)
         {
             mMoveDirection = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
             mRig.velocity = new Vector2(mMoveDirection.x * mMoveSpeed, mMoveDirection.y * mMoveSpeed);
@@ -86,17 +87,17 @@ public class Player : MonoBehaviour
         }
         else
         {
-            mCurDashStiff -= Time.deltaTime;
+            mCurDelayStiff -= Time.deltaTime;
         }
     }
     
     private void StepAttack()
     {
-        if (mCurState != State.ATTACK && Input.GetMouseButton(0))
+        if (mCurDelayStiff <= 0 && mCurState != State.ATTACK && Input.GetMouseButton(0))
         {
             mRig.velocity = Vector2.zero;
             mAnim.SetTrigger(State.ATTACK.ToString());
-            mCurDashStiff = mDashStiff;
+            mCurDelayStiff = mDashStiff;
             mAtkDirection = (Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position)).normalized;
             if ((!mIsRight && mAtkDirection.x > 0) || (mIsRight && mAtkDirection.x < 0))
             {
@@ -111,6 +112,20 @@ public class Player : MonoBehaviour
 
     }
 
+    private void OnTriggerEnter2D(Collider2D iOther)
+    {
+        if (mCurState == State.ATTACK)
+        {
+            VtuberInfo aVtuberInfo = iOther.GetComponent<VtuberInfo>();
+            if (aVtuberInfo != null)
+            {
+                Debug.Log("Get");
+            }
+
+            Debug.Log("Trigger Enter");
+        }
+    }
+
     private void Flip()
     {
         mIsRight = !mIsRight;
@@ -122,6 +137,7 @@ public class Player : MonoBehaviour
     public void ReturnIDLE()
     {
         mRig.velocity = Vector2.zero;
+        mAnim.SetFloat(State.RUN.ToString(), -1);
         ChangeStep(State.IDLE);
     }
 }
