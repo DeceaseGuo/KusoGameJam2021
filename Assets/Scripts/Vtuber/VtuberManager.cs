@@ -90,9 +90,9 @@ public class VtuberManager : MonoBehaviour
         var spawnPoint = SpawnPoints[index].position;
 
         var xOffset = (float)_random.NextDouble() * SpawnRange;
-        var zOffset = (float)_random.NextDouble() * SpawnRange;
+        var yOffset = (float)_random.NextDouble() * SpawnRange;
         spawnPoint.x += xOffset;
-        spawnPoint.z += zOffset;
+        spawnPoint.y += yOffset;
 
         return spawnPoint;
     }
