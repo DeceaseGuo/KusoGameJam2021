@@ -8,6 +8,7 @@ public class VtuberManager : MonoBehaviour
 {
     public static VtuberManager Instance;
 
+    public float VtuberDeadDelay;
     public float SpawnIntervals;
     public float SpawnRange;
     public int SceneVtuberCountLimit;
@@ -119,10 +120,17 @@ public class VtuberManager : MonoBehaviour
         vtuberData.Body.SetActive(true);
         vtuberData.FullBody.SetActive(false);
 
-        if(!vtuberData.Boold.isPlaying)
+        var boold = vtuberData.Boold;
+        var duration = VtuberDeadDelay - 0.3f;
+
+        if (!boold.isPlaying)
         {
-            vtuberData.Boold.Play();
+            var main = boold.main;
+            main.duration = duration > 0 ? duration : 0;
+            boold.Play();
         }
+
+        Destroy(vtuberData.Body, VtuberDeadDelay);
     }
 
     public AudioClip GetHeadAudio(string vtuberName)
