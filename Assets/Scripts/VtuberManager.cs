@@ -10,6 +10,7 @@ public class VtuberManager : MonoBehaviour
     public GameObject[] VtubersPrefab;
     public Transform VtuberParent;
     public float SpawnIntervals;
+    public float SpawnRange;
     public int SceneVtuberCountLimit;
 
     private List<GameObject> _vtuberList;
@@ -30,6 +31,20 @@ public class VtuberManager : MonoBehaviour
     private void Start()
     {
         _spawnCoroutine = StartCoroutine(SpawnTimer(SpawnIntervals));
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            if (SpawnPoints.Length == 0)
+            {
+                SpawnPoints = new Transform[] { transform };
+            }
+            var testSpawnPoint = GetSpawnPoint();
+
+            Debug.Log($"SpawnPoint = {testSpawnPoint}");
+        }
     }
 
     private IEnumerator SpawnTimer(float spawnIntervals)
@@ -67,12 +82,19 @@ public class VtuberManager : MonoBehaviour
     {
         var index = _random.Next(SpawnPoints.Length);
 
-        return SpawnPoints[index].localPosition;
+        var spawnPoint = SpawnPoints[index].position;
+
+        var xOffset = (float)_random.NextDouble() * SpawnRange;
+        var zOffset = (float)_random.NextDouble() * SpawnRange;
+        spawnPoint.x += xOffset;
+        spawnPoint.z += zOffset;
+
+        return spawnPoint;
     }
 
     private void Spawn(GameObject newVtuber, Vector3 spawnPos)
     {
         var obj = Instantiate(newVtuber, VtuberParent);
-        obj.transform.localPosition = spawnPos;
+        obj.transform.position = spawnPos;
     }
 }
