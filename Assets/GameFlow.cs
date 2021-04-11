@@ -27,7 +27,7 @@ public class GameFlow : MonoBehaviour
     AudioSource m_AudioSource;
 
     public AudioClip m_GameOverClip;
-    public VtuberManager m_VManger;
+    public AudioSource BGM;
 
 
     // Start is called before the first frame update
@@ -81,7 +81,7 @@ public class GameFlow : MonoBehaviour
 
     public void GameStart()
     {
-        m_VManger.StartSpawn();
+        VtuberManager.Instance.StartSpawn();
         m_TutorialUI.gameObject.SetActive(false);
         EnablePlayerInput(true);
         ActivateAllEnemy(true);
@@ -127,6 +127,7 @@ public class GameFlow : MonoBehaviour
 
     public void GameWin()
     {
+        BGM.Stop();
         m_PlayerRole.enabled = false;
         m_GameWinUI.gameObject.SetActive(true);
         m_PlayerRole.GetComponent<Rigidbody2D>().velocity = Vector2.zero;

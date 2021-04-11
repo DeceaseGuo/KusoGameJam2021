@@ -226,7 +226,10 @@ public class Player : MonoBehaviour
     private IEnumerator DelayOpenHeadTrigger(CircleCollider2D iCollider)
     {
         yield return new WaitForSeconds(2f);
-        iCollider.enabled = true;
+        if (iCollider = null)
+        {
+            iCollider.enabled = true;
+        }
     }
     private void PutDownHead(GameObject iObj)
     {

@@ -12,10 +12,13 @@ public class Stage : MonoBehaviour
     private System.Action mVideoFinishAction = null;
     private bool IsOnlyPlayOnce = false;
 
+    private bool IsWin = false;
+
     void Update()
     {
-        if (gameObject.GetComponentsInChildren<HeadPerform>().Length == 10)
+        if (!IsWin && gameObject.GetComponentsInChildren<HeadPerform>().Length == 10)
         {
+            IsWin = true;
             GameFlow.m_Instance.GameWin();
             PlayWinVideo(null);
         }

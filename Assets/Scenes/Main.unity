@@ -128,17 +128,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 943300468819399382, guid: e79776d45f509cb4697617d490531338, type: 3}
   m_PrefabInstance: {fileID: 1216657634}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &413051 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1180739947928390151, guid: e79776d45f509cb4697617d490531338, type: 3}
-  m_PrefabInstance: {fileID: 1216657634}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8fb584f8f084c66488124048119ff709, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &44573225 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2148235421136355694, guid: 0d52c4d65bd41b0418ba54d63b598175, type: 3}
@@ -487,7 +476,7 @@ MonoBehaviour:
   m_fAddEnemyTime: 20
   m_EnemyObject: {fileID: 8992708531261472883, guid: 7b5a5c16201b77b489e5b8b7c933819d, type: 3}
   m_GameOverClip: {fileID: 8300000, guid: 748075c8a219d7c42a7d7cac49c4f209, type: 3}
-  m_VManger: {fileID: 413051}
+  BGM: {fileID: 461316816}
 --- !u!1 &102976481
 GameObject:
   m_ObjectHideFlags: 0
@@ -1047,10 +1036,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Character
       objectReference: {fileID: 0}
-    - target: {fileID: 6093532914746589743, guid: fb92e6202bd4c304383e6675de6bb4a9, type: 3}
-      propertyPath: mDashStiff
-      value: 0.8
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fb92e6202bd4c304383e6675de6bb4a9, type: 3}
 --- !u!1 &416349944
@@ -1099,7 +1084,7 @@ GameObject:
   - component: {fileID: 461316817}
   - component: {fileID: 461316816}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: BGM
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1117,7 +1102,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: fe0eb5eda69b3b44dbd9f68fb7ee53fb, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.1
+  m_Volume: 0.04
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -1252,7 +1237,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: -184, y: 143}
-  m_SizeDelta: {x: 638.6763, y: 202.93231}
+  m_SizeDelta: {x: 600, y: 130}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &506122075
 MonoBehaviour:
@@ -10781,10 +10766,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1180739947928390151, guid: e79776d45f509cb4697617d490531338, type: 3}
-      propertyPath: SpawnRange
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1180739947928390151, guid: e79776d45f509cb4697617d490531338, type: 3}
       propertyPath: VtuberParent
       value: 
       objectReference: {fileID: 1043184906}
@@ -10945,7 +10926,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1253907748
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11346,6 +11327,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1477425650867857794, guid: 7b5a5c16201b77b489e5b8b7c933819d, type: 3}
+      propertyPath: m_Volume
+      value: 0.6
+      objectReference: {fileID: 0}
     - target: {fileID: 8992708531220321633, guid: 7b5a5c16201b77b489e5b8b7c933819d, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.9488446
@@ -12504,5 +12489,9 @@ PrefabInstance:
       propertyPath: m_HeadStage.Array.data[19]
       value: 
       objectReference: {fileID: 1202353894}
+    - target: {fileID: 6653421676461061220, guid: 0d52c4d65bd41b0418ba54d63b598175, type: 3}
+      propertyPath: m_Volume
+      value: 0.1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d52c4d65bd41b0418ba54d63b598175, type: 3}
