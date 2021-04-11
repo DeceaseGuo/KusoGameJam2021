@@ -20,6 +20,8 @@ public class Player : MonoBehaviour
     public float mMoveSpeed = 0;    
     [Header("使用道具僵直")]
     public float mUseItemStiff = 0;
+    public GameObject mOilSpout = null;
+    public GameObject mOilTrap = null;
     [Header("位移")]
     public float mDashStiff = 0;
     public float mDashSpeed = 0;
@@ -115,14 +117,21 @@ public class Player : MonoBehaviour
 
     private void StepUseItem()
     {
-        if (mItemCount > 0 && mCurDelayStiff <= 0 && mCurState != State.USEITEM && Input.GetMouseButton(0))
+        if (mItemCount > 0 && mCurDelayStiff <= 0 && mCurState != State.USEITEM && Input.GetMouseButton(1))
         {
             mItemCount--;
             mRig.velocity = Vector2.zero;
             mCurDelayStiff = mUseItemStiff;
             mAtkDirection = (Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position)).normalized;
             SetAtkDirection();
-            //使用道具動畫
+            mAnim.SetTrigger(State.USEITEM.ToString());
+            mOilSpout.transform.forward = mAtkDirection;
+            mOilSpout.SetActive(true);
+            Vector3 aTrapPos = mOilTrap.transform.position;
+            GameObject aTrap = Instantiate(mOilTrap);
+            aTrap.transform.rotation = Quaternion.identity;
+            aTrap.transform.position = aTrapPos;
+            aTrap.SetActive(true);
             ChangeStep(State.USEITEM);
         }
     }
@@ -188,10 +197,10 @@ public class Player : MonoBehaviour
     private void SetHead(Transform iHeadT)
     {
         mCurHeadTransform = iHeadT;
+        mCurHeadTransform.position = mHeadPos.position;
         mCurHeadTransform.SetParent(mHeadPos);
         mCurHeadTransform.localPosition = Vector3.zero;
         PlayHeadAudio();
-        //mCurHeadTransform.DOMove(Vector3.zero, .5f);
     }
     private void ThrowHead()
     {
@@ -231,6 +240,10 @@ public class Player : MonoBehaviour
 
     public void ReturnIDLE()
     {
+        if (mCurState == State.USEITEM)
+        {
+            mOilSpout.SetActive(false);
+        }
         mRig.velocity = Vector2.zero;
         mAnim.SetFloat(State.RUN.ToString(), -1);
         ChangeStep(State.IDLE);
