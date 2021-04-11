@@ -272,6 +272,10 @@ public class Player : MonoBehaviour
         Vector3 aLocalScale = transform.localScale;
         aLocalScale.x *= -1;
         transform.localScale = aLocalScale;
+
+        var oilScale = mOilSpout.transform.localScale;
+        oilScale.x *= -1;
+        mOilSpout.transform.localScale = oilScale;
     }
 
     public void ReturnIDLE()

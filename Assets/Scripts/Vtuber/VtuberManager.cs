@@ -149,11 +149,10 @@ public class VtuberManager : MonoBehaviour
         vtuber.transform.position = spawnPos;
 
         var vtuberData = vtuber.GetComponent<VtuberInfo>();
+        vtuberData.Head.name = newVtuberSprite.Name;
         vtuberData.FullBody.GetComponent<SpriteRenderer>().sprite = newVtuberSprite.FullBody;
         vtuberData.Head.GetComponent<SpriteRenderer>().sprite = newVtuberSprite.Head;
         vtuberData.Body.GetComponent<SpriteRenderer>().sprite = newVtuberSprite.Body;
-
-        vtuberData.Head.name = newVtuberSprite.Name;
 
         vtuber.SetActive(true);
 
@@ -171,7 +170,7 @@ public class VtuberManager : MonoBehaviour
 
         SetVtuberActive(vtuberData);
 
-        PlayBoold(vtuberData.Boold, VtuberDeadDelay - 0.05f);
+        PlayBoold(vtuberData.Boold, VtuberDeadDelay);
 
         Destroy(vtuberData.gameObject, VtuberDeadDelay);
         _sceneVtubersCount--;
