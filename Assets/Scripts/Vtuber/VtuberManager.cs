@@ -136,7 +136,7 @@ public class VtuberManager : MonoBehaviour
             boold.Play();
         }
 
-        Destroy(vtuberData.Body, VtuberDeadDelay);
+        Destroy(vtuberData.gameObject, VtuberDeadDelay);
     }
 
     public AudioClip GetHeadAudio(string vtuberName)
