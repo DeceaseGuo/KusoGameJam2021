@@ -60,13 +60,16 @@ public class VtuberManager : MonoBehaviour
     #region Spawn
     private IEnumerator SpawnTimer(float spawnIntervals)
     {
-        yield return new WaitForSeconds(spawnIntervals);
-
-        if (_sceneVtubers.Count < SceneVtuberCountLimit && _vtuberSpriteList.Count > 0)
+        while (true)
         {
-            var newVtuberSprite = GetNewVtuberSprite();
-            var spawnPoint = GetSpawnPoint();
-            Spawn(newVtuberSprite, spawnPoint);
+            yield return new WaitForSeconds(spawnIntervals);
+            Debug.Log($"Scene = {_sceneVtubers.Count}, Sprite = {_vtuberSpriteList.Count}");
+            if (_sceneVtubers.Count < SceneVtuberCountLimit && _vtuberSpriteList.Count > 0)
+            {
+                var newVtuberSprite = GetNewVtuberSprite();
+                var spawnPoint = GetSpawnPoint();
+                Spawn(newVtuberSprite, spawnPoint);
+            }
         }
     }
 

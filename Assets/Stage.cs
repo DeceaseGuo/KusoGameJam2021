@@ -28,6 +28,12 @@ public class Stage : MonoBehaviour
     public Transform HeadAttach()
     {
         m_CurrentPoint++;
+
+        if(m_CurrentPoint == 10)
+        {
+            GameFlow.m_Instance.GameWin();
+        }
+
         if(m_CurrentPoint < m_HeadStage.Length)
         {
             return m_HeadStage[m_CurrentPoint];
