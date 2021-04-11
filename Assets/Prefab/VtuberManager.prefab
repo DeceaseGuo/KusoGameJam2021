@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fb584f8f084c66488124048119ff709, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  VtuberDeadDelay: 0
+  VtuberDeadDelay: 4
   SpawnIntervals: 5
   SpawnRange: 10
   SceneVtuberCountLimit: 10
@@ -56,21 +56,21 @@ MonoBehaviour:
     Body: {fileID: 21300000, guid: 9c8b5d2f81904c24b88e93623945d079, type: 3}
     Item: {fileID: 0}
     Audio: {fileID: 8300000, guid: 40b310b032f4d204e9435a0b9e2d3176, type: 3}
-    HeadAudio: {fileID: 0}
+    HeadAudio: {fileID: 8300000, guid: 79f9f4eeba79c204eba46b5103fe2d08, type: 3}
   - Name: Ame
     FullBody: {fileID: 21300000, guid: 85c34bf4e118cb4479d82b413d011b08, type: 3}
     Head: {fileID: 21300000, guid: ba8f2094587e5a14a8fcfafad6201d6e, type: 3}
     Body: {fileID: 21300000, guid: ec51f00ae0b23ed40ae553f749e83ade, type: 3}
     Item: {fileID: 0}
-    Audio: {fileID: 0}
-    HeadAudio: {fileID: 0}
+    Audio: {fileID: 8300000, guid: 1091860235f0cbd4284504938615b777, type: 3}
+    HeadAudio: {fileID: 8300000, guid: d54d0e5d99326414e8b70df0ff78a50d, type: 3}
   - Name: Aqua
     FullBody: {fileID: 21300000, guid: 1649a34238aa7bf4d90817c6ff3758d6, type: 3}
     Head: {fileID: 21300000, guid: 31b036bf4dbcebf4bba0a932727c899b, type: 3}
     Body: {fileID: 21300000, guid: 5dd2c5ccde133d24b80c42a938fe0693, type: 3}
     Item: {fileID: 0}
     Audio: {fileID: 8300000, guid: 641b2ae69bbf4634b99cf84841947f7b, type: 3}
-    HeadAudio: {fileID: 0}
+    HeadAudio: {fileID: 8300000, guid: 40aee267074742d4fab1990e3d506c0e, type: 3}
   - Name: Fubuki
     FullBody: {fileID: 21300000, guid: 6469906e01b098c419634609fa66aa98, type: 3}
     Head: {fileID: 21300000, guid: fe7eac3ccaff698488a0b3da9250add9, type: 3}
@@ -105,7 +105,7 @@ MonoBehaviour:
     Body: {fileID: 21300000, guid: 99ec3533f5a3ebe4f939b309fd3165b3, type: 3}
     Item: {fileID: 0}
     Audio: {fileID: 8300000, guid: 1e531290aab1da54690b8eff1e6b871c, type: 3}
-    HeadAudio: {fileID: 0}
+    HeadAudio: {fileID: 8300000, guid: 6179035cf7575ec429766d71a7797fb9, type: 3}
   - Name: Peko
     FullBody: {fileID: 21300000, guid: 1b3ad0d92d4b3194591f81f3123c1709, type: 3}
     Head: {fileID: 21300000, guid: 4711481d2fc23ba4d819f230da600338, type: 3}
@@ -128,4 +128,13 @@ MonoBehaviour:
     Audio: {fileID: 8300000, guid: 3c67880879a6e46468d878254dae9050, type: 3}
     HeadAudio: {fileID: 8300000, guid: 110b66f3a66eeeb40b55eb852c90ac02, type: 3}
   SpawnPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 0}
