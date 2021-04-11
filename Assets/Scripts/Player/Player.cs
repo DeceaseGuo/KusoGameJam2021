@@ -151,6 +151,11 @@ public class Player : MonoBehaviour
         {
             TriggerVtuberHead(iOther.gameObject);
         }
+        else if (iOther.gameObject.CompareTag("Altar"))
+        {
+            Stage aAltar = iOther.GetComponent<Stage>();
+            PutDownHead(aAltar.HeadAttach());             
+        }
     }
 
     #region TriggerEnterObj
@@ -208,6 +213,19 @@ public class Player : MonoBehaviour
         mCurHeadTransform.SetParent(null);
         mCurHeadTransform.position = aCurPos;
         StopHeadAudio();
+    }
+    private void PutDownHead(Transform iPutPos)
+    {
+        if (mCurHeadTransform != null)
+        {
+            mCurHeadTransform.SetParent(null);
+            mCurHeadTransform.GetComponent<CircleCollider2D>().enabled = false;
+            mCurHeadTransform.position = iPutPos.position;
+            mCurHeadTransform.rotation = Quaternion.identity;
+            StopHeadAudio();
+            mCurHeadTransform = null;
+            mHaedName = null;
+        }
     }
     private void PlayHeadAudio()
     {

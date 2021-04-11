@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5374679971556001032}
   m_Layer: 0
   m_Name: stage
-  m_TagString: Untagged
+  m_TagString: Altar
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
