@@ -10,6 +10,7 @@ public class Stage : MonoBehaviour
     public SpriteRenderer mSpriteRender = null;
     public AudioSource mAudio = null;
     private System.Action mVideoFinishAction = null;
+    private bool IsOnlyPlayOnce = false;
 
     void Update()
     {
@@ -22,6 +23,12 @@ public class Stage : MonoBehaviour
 
     public void PlayWinVideo(System.Action iFinishAction)
     {
+        if (IsOnlyPlayOnce)
+        {
+            return;
+        }
+        IsOnlyPlayOnce = true;
+
         if (mWinVideo)
         {
             mWinVideo.Stop();
