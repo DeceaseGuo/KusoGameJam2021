@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fb584f8f084c66488124048119ff709, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  VtuberDeadDelay: 0
+  VtuberDeadDelay: 4
   SpawnIntervals: 5
   SpawnRange: 10
   SceneVtuberCountLimit: 10
@@ -128,4 +128,13 @@ MonoBehaviour:
     Audio: {fileID: 8300000, guid: 3c67880879a6e46468d878254dae9050, type: 3}
     HeadAudio: {fileID: 8300000, guid: 110b66f3a66eeeb40b55eb852c90ac02, type: 3}
   SpawnPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 0}

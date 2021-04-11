@@ -123,7 +123,7 @@ public class Enemy : MonoBehaviour
         {
             if (Vector2.Distance(transform.position, m_oPlayer.transform.position) < m_fStopDistance)
             {
-
+                
             }
         }
     }
