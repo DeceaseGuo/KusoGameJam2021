@@ -17,7 +17,7 @@ public class Player : MonoBehaviour
 
     public AudioSource mAudio = null;
     public AudioSource mHeadAudio = null;
-    public float mMoveSpeed = 0;    
+    public float mMoveSpeed = 0;
     [Header("使用道具僵直")]
     public float mUseItemStiff = 0;
     public GameObject mOilSpout = null;
@@ -38,7 +38,7 @@ public class Player : MonoBehaviour
     private Vector2 mAtkDirection = Vector2.zero;
     private Rigidbody2D mRig = null;
 
-    public AudioClip mAtkAudio = null;    
+    public AudioClip mAtkAudio = null;
 
     private void Awake()
     {
@@ -101,7 +101,7 @@ public class Player : MonoBehaviour
             mCurDelayStiff -= Time.deltaTime;
         }
     }
-    
+
     private void StepAttack()
     {
         if (mCurDelayStiff <= 0 && mCurState != State.ATTACK && Input.GetMouseButton(0))
@@ -153,8 +153,7 @@ public class Player : MonoBehaviour
         }
         else if (iOther.gameObject.CompareTag("Altar"))
         {
-            Stage aAltar = iOther.GetComponent<Stage>();
-            PutDownHead(aAltar.HeadAttach());             
+            PutDownHead(iOther.gameObject);
         }
     }
 
@@ -201,26 +200,42 @@ public class Player : MonoBehaviour
     #region Head
     private void SetHead(Transform iHeadT)
     {
+        if (mCurHeadTransform != null)
+        {
+            ThrowHead();
+        }
         mCurHeadTransform = iHeadT;
         mCurHeadTransform.position = mHeadPos.position;
         mCurHeadTransform.SetParent(mHeadPos);
         mCurHeadTransform.localPosition = Vector3.zero;
+        mCurHeadTransform.GetComponent<CircleCollider2D>().enabled = false;
         PlayHeadAudio();
     }
     private void ThrowHead()
     {
-        Vector3 aCurPos = mCurHeadTransform.position;
-        mCurHeadTransform.SetParent(null);
-        mCurHeadTransform.position = aCurPos;
-        StopHeadAudio();
+        if (mCurHeadTransform != null)
+        {
+            Vector3 aCurPos = mCurHeadTransform.position;
+            mCurHeadTransform.SetParent(null);
+            mCurHeadTransform.position = aCurPos;
+            StopHeadAudio();
+            StartCoroutine(DelayOpenHeadTrigger(mCurHeadTransform.GetComponent<CircleCollider2D>()));
+            mCurHeadTransform = null;
+        }
     }
-    private void PutDownHead(Transform iPutPos)
+    private IEnumerator DelayOpenHeadTrigger(CircleCollider2D iCollider)
+    {
+        yield return new WaitForSeconds(2f);
+        iCollider.enabled = true;
+    }
+    private void PutDownHead(GameObject iObj)
     {
         if (mCurHeadTransform != null)
         {
+            Stage aAltar = iObj.GetComponent<Stage>();
             mCurHeadTransform.SetParent(null);
             mCurHeadTransform.GetComponent<CircleCollider2D>().enabled = false;
-            mCurHeadTransform.position = iPutPos.position;
+            mCurHeadTransform.position = aAltar.HeadAttach().position;
             mCurHeadTransform.rotation = Quaternion.identity;
             StopHeadAudio();
             mCurHeadTransform = null;
