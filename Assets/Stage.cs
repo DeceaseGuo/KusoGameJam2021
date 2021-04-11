@@ -11,6 +11,15 @@ public class Stage : MonoBehaviour
     public AudioSource mAudio = null;
     private System.Action mVideoFinishAction = null;
 
+    void Update()
+    {
+        if (gameObject.GetComponentsInChildren<HeadPerform>().Length == 10)
+        {
+            GameFlow.m_Instance.GameWin();
+            PlayWinVideo(null);
+        }
+    }
+
     public void PlayWinVideo(System.Action iFinishAction)
     {
         if (mWinVideo)
@@ -43,13 +52,8 @@ public class Stage : MonoBehaviour
 
     public Transform HeadAttach()
     {
-        m_CurrentPoint++;
+        m_CurrentPoint = gameObject.GetComponentsInChildren<HeadPerform>().Length;
 
-        if(m_CurrentPoint == 10)
-        {
-            GameFlow.m_Instance.GameWin();
-            PlayWinVideo(null);
-        }
 
         if(m_CurrentPoint < m_HeadStage.Length)
         {
