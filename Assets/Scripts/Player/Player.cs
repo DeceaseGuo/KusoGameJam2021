@@ -148,7 +148,7 @@ public class Player : MonoBehaviour
     private void TriggerVtuber(GameObject iObj)
     {
         VtuberInfo aVtuberInfo = iObj.GetComponent<VtuberInfo>();
-        if (aVtuberInfo != null)
+        if (aVtuberInfo != null && !aVtuberInfo.IsDead)
         {
             if (!string.IsNullOrEmpty(mHaedName))//有頭在手上情況
             {
