@@ -21,21 +21,31 @@ public class VtuberManager : MonoBehaviour
     public Transform[] SpawnPoints;
     
     private List<VtuberSpriteInfo> _vtuberSpriteList;
-    private List<GameObject> _sceneVtubers;
+    private int _sceneVtubersCount;
     private System.Random _random;
     private Coroutine _spawnCoroutine;
 
     private Dictionary<string, AudioClip> _headAudioDic;
+    private Dictionary<Transform, GameObject> _spawnVtuberDic;
 
     private void Awake()
     {
         Instance = this;
-
-        _sceneVtubers = new List<GameObject>();
         _random = new System.Random();
 
         _vtuberSpriteList = VtuberSpriteInfos.ToList();
         _headAudioDic = VtuberSpriteInfos.ToDictionary(data => data.Name, data => data.HeadAudio);
+
+        _spawnVtuberDic = new Dictionary<Transform, GameObject>();
+
+        for (int i = 0; i < SpawnPoints.Length; i++)
+        {
+            var spawnPoint = SpawnPoints[i];
+            if (!_spawnVtuberDic.ContainsKey(spawnPoint))
+            {
+                _spawnVtuberDic.Add(spawnPoint, null);
+            }
+        }
     }
 
     public void StartSpawn()
@@ -51,7 +61,7 @@ public class VtuberManager : MonoBehaviour
             {
                 SpawnPoints = new Transform[] { transform };
             }
-            var testSpawnPoint = GetSpawnPoint();
+            TryGetSpawnPoint(out var testSpawnPoint);
 
             Debug.Log($"SpawnPoint = {testSpawnPoint}");
         }
@@ -60,17 +70,24 @@ public class VtuberManager : MonoBehaviour
     #region Spawn
     private IEnumerator SpawnTimer(float spawnIntervals)
     {
-        while (true)
+        while (_vtuberSpriteList.Count > 0)
         {
             yield return new WaitForSeconds(spawnIntervals);
-            Debug.Log($"Scene = {_sceneVtubers.Count}, Sprite = {_vtuberSpriteList.Count}");
-            if (_sceneVtubers.Count < SceneVtuberCountLimit && _vtuberSpriteList.Count > 0)
+            Debug.Log($"Scene = {_sceneVtubersCount}, Sprite = {_vtuberSpriteList.Count}");
+
+            if (_sceneVtubersCount < SceneVtuberCountLimit && TryGetSpawnPoint(out var spawnPoint))
             {
                 var newVtuberSprite = GetNewVtuberSprite();
-                var spawnPoint = GetSpawnPoint();
-                Spawn(newVtuberSprite, spawnPoint);
+                var spawnPos = GetOffsetSpawnPos(spawnPoint);
+                var newVtuber = SpawnVtuber(newVtuberSprite, spawnPos);
+
+                _spawnVtuberDic[spawnPoint] = newVtuber;
+                _sceneVtubersCount++;
             }
         }
+
+        Debug.Log("StopCoroutine");
+        StopCoroutine(_spawnCoroutine);
     }
 
     private VtuberSpriteInfo GetNewVtuberSprite()
@@ -86,21 +103,38 @@ public class VtuberManager : MonoBehaviour
         return vtuberSprite;
     }
 
-    private Vector3 GetSpawnPoint()
+    private bool TryGetSpawnPoint(out Transform spawnPoint)
     {
-        var index = _random.Next(SpawnPoints.Length);
+        spawnPoint = null;
 
-        var spawnPoint = SpawnPoints[index].position;
+        var spawnPoints = _spawnVtuberDic
+            .Where(pair => pair.Value == null)
+            .Select(pair => pair.Key)
+            .ToArray();
 
-        var xOffset = (float)_random.NextDouble() * SpawnRange;
-        var yOffset = (float)_random.NextDouble() * SpawnRange;
-        spawnPoint.x += xOffset;
-        spawnPoint.y += yOffset;
+        if (spawnPoints.Length == 0)
+        {
+            return false;
+        }
 
-        return spawnPoint;
+        var index = _random.Next(spawnPoints.Length);
+        spawnPoint = spawnPoints[index];
+
+        return true;
     }
 
-    private void Spawn(VtuberSpriteInfo newVtuberSprite, Vector3 spawnPos)
+    private Vector3 GetOffsetSpawnPos(Transform spawnPoint)
+    {
+        var spawnPos = spawnPoint.position;
+        var xOffset = (float)_random.NextDouble() * SpawnRange;
+        var yOffset = (float)_random.NextDouble() * SpawnRange;
+        spawnPos.x += xOffset;
+        spawnPos.y += yOffset;
+
+        return spawnPos;
+    }
+
+    private GameObject SpawnVtuber(VtuberSpriteInfo newVtuberSprite, Vector3 spawnPos)
     {
         var vtuber = Instantiate(VtuberPrefab, VtuberParent);
         vtuber.transform.position = spawnPos;
@@ -114,6 +148,8 @@ public class VtuberManager : MonoBehaviour
         vtuberData.Head.name = newVtuberSprite.Name;
 
         vtuber.SetActive(true);
+
+        return vtuber;
     }
     #endregion Spawn
 
@@ -140,6 +176,7 @@ public class VtuberManager : MonoBehaviour
         }
 
         Destroy(vtuberData.gameObject, VtuberDeadDelay);
+        _sceneVtubersCount--;
     }
 
     public AudioClip GetHeadAudio(string vtuberName)
