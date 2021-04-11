@@ -59,10 +59,13 @@ public class Enemy : MonoBehaviour
     EEnemyState m_eState = EEnemyState.eNormal;
     Animator m_Animator;
     SpriteRenderer m_SpriteRenderer;
+    public AudioClip m_AttackSound;
+    AudioSource m_AudioSource;
 
     // Start is called before the first frame update
     void Start()
     {
+        m_AudioSource = GetComponent<AudioSource>();
         m_fHP = m_fMaxHp;
         m_SpriteRenderer = GetComponent<SpriteRenderer>();
         m_Animator = GetComponent<Animator>();
@@ -78,6 +81,12 @@ public class Enemy : MonoBehaviour
         }
         ResetBuff();
         m_Animator.SetFloat("Speed", m_oMoveRB2D.velocity.magnitude);
+
+        if(m_eState == EEnemyState.eAttacking)
+        {
+            AttackDetect();
+        }
+        
         if(m_eState == EEnemyState.eAttacking || m_eState == EEnemyState.eDie || m_eState == EEnemyState.eReadyToAttack)
         {
             return;
@@ -113,6 +122,8 @@ public class Enemy : MonoBehaviour
 
     void Attack()
     {
+        m_AudioSource.clip = m_AttackSound;
+        m_AudioSource.Play();
         m_eState = EEnemyState.eAttacking;
         m_Animator.SetTrigger("Attack");
     }

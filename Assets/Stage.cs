@@ -32,6 +32,7 @@ public class Stage : MonoBehaviour
         if(m_CurrentPoint == 10)
         {
             GameFlow.m_Instance.GameWin();
+            PlayWinVideo(null);
         }
 
         if(m_CurrentPoint < m_HeadStage.Length)
