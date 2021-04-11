@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameFlow : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class GameFlow : MonoBehaviour
     public Enemy m_SequenceEnemy;
     public Player m_PlayerRole;
     public Canvas m_TutorialUI;
+    public Canvas m_GameOverUI;
+    public Canvas m_GameWinUI;
     public AnimationCurve m_EnemySpeedCurve;
     public float m_fUpdateSpeedTime;
 
@@ -19,9 +22,22 @@ public class GameFlow : MonoBehaviour
 
     public GameObject m_EnemyObject;
 
+    public static GameFlow m_Instance;
+
+    AudioSource m_AudioSource;
+
+    public AudioClip m_GameOverClip;
+
+
     // Start is called before the first frame update
+
+    private void Awake() {
+        m_Instance = this;
+    }
+
     void Start()
     {
+        m_AudioSource = GetComponent<AudioSource>();
         m_TutorialUI.gameObject.SetActive(false);
         m_Enemy.Add(m_SequenceEnemy);
         m_SequenceEnemy.ActivateObject(false);
@@ -94,5 +110,25 @@ public class GameFlow : MonoBehaviour
         {
             item.ActivateObject(bEnable);
         }
+    }
+
+    public void GameOver()
+    {
+        m_GameOverUI.gameObject.SetActive(true);
+        m_AudioSource.clip = m_GameOverClip;
+        m_AudioSource.Play();
+        m_PlayerRole.enabled = false;
+    }
+
+    public void GameWin()
+    {
+        m_PlayerRole.enabled = false;
+        ActivateAllEnemy(false);
+        m_GameWinUI.gameObject.SetActive(true);
+    }
+
+    public void BackToMenu()
+    {
+        SceneManager.LoadScene(0);
     }
 }

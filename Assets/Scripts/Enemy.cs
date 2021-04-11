@@ -22,7 +22,8 @@ public enum EEnemyState
     eWait,
     eAttacking,
     eReadyToAttack,
-    eDie
+    eDie,
+    eSlowing
 }
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -123,7 +124,7 @@ public class Enemy : MonoBehaviour
         {
             if (Vector2.Distance(transform.position, m_oPlayer.transform.position) < m_fStopDistance)
             {
-                
+                GameFlow.m_Instance.GameOver();
             }
         }
     }
@@ -154,10 +155,14 @@ public class Enemy : MonoBehaviour
 
     public void AddBuff(EEnemyBuff eBuffType, float fValue, float fTime)
     {
+        if(m_eState == EEnemyState.eSlowing)
+        {
+            return;
+        }
         switch (eBuffType)
         {
             case EEnemyBuff.eSlow:
-                m_fSpeed -= fValue;
+                m_fSpeed = 0.0f;
                 break;
             case EEnemyBuff.eQuick:
                 m_fSpeed += fValue;
@@ -194,7 +199,7 @@ public class Enemy : MonoBehaviour
                 switch (buff.m_eType)
                 {
                     case EEnemyBuff.eSlow:
-                        m_fSpeed += buff.m_fValue;
+                        m_fSpeed = 5.0f;
                         break;
                     case EEnemyBuff.eQuick:
                         m_fSpeed -= buff.m_fValue;
@@ -206,6 +211,26 @@ public class Enemy : MonoBehaviour
                 break;
             }
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other) 
+    {
+        if(m_eState == EEnemyState.eSlowing)
+        {
+            return;
+        }
+        if(other.gameObject.tag == "Oil")
+        {
+            Debug.Log("OIL!!!");
+            AddBuff(EEnemyBuff.eSlow, 0.0f, 10.0f);
+            m_eState = EEnemyState.eSlowing;
+            Invoke("StopSlowing", 15.0f);
+        }
+    }
+
+    void StopSlowing()
+    {
+        m_eState = EEnemyState.eNormal;
     }
 
 }
