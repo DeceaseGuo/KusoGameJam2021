@@ -7,17 +7,38 @@ public class Stage : MonoBehaviour
     public Transform[] m_HeadStage;
     public int m_CurrentPoint;
 
+    public SpriteRenderer mSpriteRender = null;
+    public AudioSource mAudio = null;
     private System.Action mVideoFinishAction = null;
+
+    private void Start()
+    {
+        PlayWinVideo(null);
+    }
 
     public void PlayWinVideo(System.Action iFinishAction)
     {
-        if (!mWinVideo.isPlaying)
+        if (mWinVideo)
         {
-            mVideoFinishAction = iFinishAction;
-            mWinVideo.gameObject.SetActive(true);
-            mWinVideo.Play();
-            mWinVideo.loopPointReached += WinVideoFinish;
+            mWinVideo.Stop();
+            mWinVideo.targetTexture.Release();
+            Destroy(mWinVideo.gameObject);
         }
+        mSpriteRender.gameObject.SetActive(true);
+
+        mWinVideo = new GameObject().AddComponent<VideoPlayer>();
+        mWinVideo.audioOutputMode = VideoAudioOutputMode.AudioSource;
+        mWinVideo.SetTargetAudioSource(0, mAudio);
+        mWinVideo.renderMode = VideoRenderMode.MaterialOverride;
+        mWinVideo.targetMaterialRenderer = mSpriteRender;
+
+        string streamingMediaPath = System.IO.Path.Combine(Application.streamingAssetsPath, "winVideo.mp4");
+        mWinVideo.url = streamingMediaPath;
+        mWinVideo.Prepare();
+        mWinVideo.Play();
+
+        mVideoFinishAction = iFinishAction;
+        mWinVideo.loopPointReached += WinVideoFinish;
     }
 
     private void WinVideoFinish(VideoPlayer iPlayer)
