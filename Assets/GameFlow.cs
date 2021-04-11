@@ -6,12 +6,18 @@ using UnityEngine.UI;
 
 public class GameFlow : MonoBehaviour
 {
-    public Transform EnemySpawnPoint;
+    public Transform[] EnemySpawnPoint;
     public CinemachineVirtualCamera m_CameraVC;
     public List<Enemy> m_Enemy;
     public Enemy m_SequenceEnemy;
     public Player m_PlayerRole;
     public Canvas m_TutorialUI;
+    public AnimationCurve m_EnemySpeedCurve;
+    public float m_fUpdateSpeedTime;
+
+    public float m_fAddEnemyTime;
+
+    public GameObject m_EnemyObject;
 
     // Start is called before the first frame update
     void Start()
@@ -53,10 +59,33 @@ public class GameFlow : MonoBehaviour
 
     public void EndToturial()
     {
+        GameStart();
+    }
+
+    public void GameStart()
+    {
         m_TutorialUI.gameObject.SetActive(false);
         EnablePlayerInput(true);
         ActivateAllEnemy(true);
+        InvokeRepeating("ChangeEnemySpeed", 1.0f, m_fUpdateSpeedTime);
+        InvokeRepeating("AddEnemy", 1.0f, m_fAddEnemyTime);
+    }
 
+    public void AddEnemy()
+    {
+        Transform RandomPoint = EnemySpawnPoint[Random.Range(0, EnemySpawnPoint.Length - 1)];
+        Enemy newEnemy = Instantiate(m_EnemyObject, RandomPoint).GetComponent<Enemy>();
+        m_Enemy.Add(newEnemy);
+        newEnemy.ActivateObject(true);
+        newEnemy.m_oPlayer = m_PlayerRole.gameObject;
+    }
+
+    public void ChangeEnemySpeed()
+    {
+        foreach (Enemy item in m_Enemy)
+        {
+            item.AddBuff(EEnemyBuff.eQuick, m_EnemySpeedCurve.Evaluate(Time.time), -1.0f);
+        }
     }
 
     public void ActivateAllEnemy(bool bEnable)
