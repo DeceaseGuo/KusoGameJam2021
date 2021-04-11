@@ -1535,7 +1535,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1.24
-  m_Text: "WASD \u63A7\u5236\u80A5\u5B85\u65B9\u5411 \"\u6ED1\u9F20\u5DE6\u9375\u64B2\u5012\"\n\u4F7F\u7528\u64B2\u5012\u6536\u96C6Vtuber\n\n\u6536\u96C6Vtuber\u8FD4\u56DE\u821E\u53F0
+  m_Text: "WASD \u63A7\u5236\u80A5\u5B85\u65B9\u5411 \"\u6ED1\u9F20\u5DE6\u9375\u64B2\u5012\"\n\u4F7F\u7528\u64B2\u5012\u6536\u96C6\u80D6\u6B21\n\n\u6536\u96C6\u80D6\u6B21\u8FD4\u56DE\u821E\u53F0
     (\u756B\u9762\u53F3\u4E0B\u89D2\u90A3\u500B) \u7372\u5F971\u9EDE\n\u7372\u5F9710\u9EDE\u5373\u53EF\u7372\u52DD\n\u6BCF\u6536\u96C6\u5230Vtuber
     \u53EF\u4EE5\u6309 \"\u6ED1\u9F20\u53F3\u9375\u65BD\u653E\u6280\u80FD\""
 --- !u!222 &635644402
@@ -10769,6 +10769,10 @@ PrefabInstance:
       propertyPath: VtuberParent
       value: 
       objectReference: {fileID: 1043184906}
+    - target: {fileID: 1180739947928390151, guid: e79776d45f509cb4697617d490531338, type: 3}
+      propertyPath: VtuberDeadDelay
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 1180739947928390151, guid: e79776d45f509cb4697617d490531338, type: 3}
       propertyPath: SpawnPoints.Array.data[0]
       value: 

@@ -53,77 +53,77 @@ MonoBehaviour:
   VtuberSpriteInfos:
   - Name: Ahoy
     FullBody: {fileID: 21300000, guid: fba299140d4539746b3b7611b76845e7, type: 3}
-    Head: {fileID: 21300000, guid: 4e347c9c56564024091ee6bf24be5b2f, type: 3}
+    Head: {fileID: 21300000, guid: 1bf764eb31efecc4cac08c99802e3009, type: 3}
     Body: {fileID: 21300000, guid: 9c8b5d2f81904c24b88e93623945d079, type: 3}
     Item: {fileID: 0}
     Audio: {fileID: 8300000, guid: 40b310b032f4d204e9435a0b9e2d3176, type: 3}
     HeadAudio: {fileID: 8300000, guid: 79f9f4eeba79c204eba46b5103fe2d08, type: 3}
   - Name: Ame
     FullBody: {fileID: 21300000, guid: 85c34bf4e118cb4479d82b413d011b08, type: 3}
-    Head: {fileID: 21300000, guid: ba8f2094587e5a14a8fcfafad6201d6e, type: 3}
+    Head: {fileID: 21300000, guid: 1bf764eb31efecc4cac08c99802e3009, type: 3}
     Body: {fileID: 21300000, guid: ec51f00ae0b23ed40ae553f749e83ade, type: 3}
     Item: {fileID: 0}
     Audio: {fileID: 8300000, guid: 1091860235f0cbd4284504938615b777, type: 3}
     HeadAudio: {fileID: 8300000, guid: d54d0e5d99326414e8b70df0ff78a50d, type: 3}
   - Name: Aqua
     FullBody: {fileID: 21300000, guid: 1649a34238aa7bf4d90817c6ff3758d6, type: 3}
-    Head: {fileID: 21300000, guid: 31b036bf4dbcebf4bba0a932727c899b, type: 3}
+    Head: {fileID: 21300000, guid: 1bf764eb31efecc4cac08c99802e3009, type: 3}
     Body: {fileID: 21300000, guid: 5dd2c5ccde133d24b80c42a938fe0693, type: 3}
     Item: {fileID: 0}
     Audio: {fileID: 8300000, guid: 641b2ae69bbf4634b99cf84841947f7b, type: 3}
     HeadAudio: {fileID: 8300000, guid: 40aee267074742d4fab1990e3d506c0e, type: 3}
   - Name: Fubuki
     FullBody: {fileID: 21300000, guid: 6469906e01b098c419634609fa66aa98, type: 3}
-    Head: {fileID: 21300000, guid: fe7eac3ccaff698488a0b3da9250add9, type: 3}
+    Head: {fileID: 21300000, guid: 1bf764eb31efecc4cac08c99802e3009, type: 3}
     Body: {fileID: 21300000, guid: 6f894c69c0f14e54888d85a37e3f8e03, type: 3}
     Item: {fileID: 0}
     Audio: {fileID: 8300000, guid: 20b0f7e850becff49973e57eead198ac, type: 3}
     HeadAudio: {fileID: 8300000, guid: 529bee49e219883468df32bcd0201d6f, type: 3}
   - Name: Gura
     FullBody: {fileID: 21300000, guid: 59db78cb6051bfe46852f30bb3b13070, type: 3}
-    Head: {fileID: 21300000, guid: ac5abd8d1abb1dc468bc9032bb5d14ea, type: 3}
+    Head: {fileID: 21300000, guid: 1bf764eb31efecc4cac08c99802e3009, type: 3}
     Body: {fileID: 21300000, guid: cb7409312bb7db9448e745aee05989b7, type: 3}
     Item: {fileID: 0}
     Audio: {fileID: 8300000, guid: 92d2c2de7537ea54e9aeda7e7179d9f0, type: 3}
     HeadAudio: {fileID: 8300000, guid: 9ea760009673e254fb766d9a7084e4fc, type: 3}
   - Name: Korone
     FullBody: {fileID: 21300000, guid: c423f5bccdc63ae4e89c8d7a9de9371c, type: 3}
-    Head: {fileID: 21300000, guid: 500bd5975f789284d943c61be1559f4b, type: 3}
+    Head: {fileID: 21300000, guid: 1bf764eb31efecc4cac08c99802e3009, type: 3}
     Body: {fileID: 21300000, guid: a69f1980c32665e49a0b4f0965381bb5, type: 3}
     Item: {fileID: 0}
     Audio: {fileID: 8300000, guid: 6d8caf82ddcd4ad4d9c73c34461dac56, type: 3}
     HeadAudio: {fileID: 8300000, guid: 4877c9aa6146e8048bec48e9ffb693c3, type: 3}
   - Name: Lamy
     FullBody: {fileID: 21300000, guid: 3e95a467f32731e4c86a371078773891, type: 3}
-    Head: {fileID: 21300000, guid: fdbd5375d1fd3f84ca43ff3f629b9b51, type: 3}
+    Head: {fileID: 21300000, guid: 1bf764eb31efecc4cac08c99802e3009, type: 3}
     Body: {fileID: 21300000, guid: 9adc5923ee9c62849abfe911f38b5507, type: 3}
     Item: {fileID: 0}
     Audio: {fileID: 8300000, guid: 0a8c0864d61653a47905e05530c67e9e, type: 3}
     HeadAudio: {fileID: 8300000, guid: da9580a13675bb3428f55098cbdb59f6, type: 3}
   - Name: Noeru
     FullBody: {fileID: 21300000, guid: 4d9df9f7a40c0d342bf1342114a5bafa, type: 3}
-    Head: {fileID: 21300000, guid: 8fa6e46f5ceb7a44fac02b9cde15b31a, type: 3}
+    Head: {fileID: 21300000, guid: 1bf764eb31efecc4cac08c99802e3009, type: 3}
     Body: {fileID: 21300000, guid: 99ec3533f5a3ebe4f939b309fd3165b3, type: 3}
     Item: {fileID: 0}
     Audio: {fileID: 8300000, guid: 1e531290aab1da54690b8eff1e6b871c, type: 3}
     HeadAudio: {fileID: 8300000, guid: 6179035cf7575ec429766d71a7797fb9, type: 3}
   - Name: Peko
     FullBody: {fileID: 21300000, guid: 1b3ad0d92d4b3194591f81f3123c1709, type: 3}
-    Head: {fileID: 21300000, guid: 4711481d2fc23ba4d819f230da600338, type: 3}
+    Head: {fileID: 21300000, guid: 1bf764eb31efecc4cac08c99802e3009, type: 3}
     Body: {fileID: 21300000, guid: 619e712734336394abdf22cc7afe24ec, type: 3}
     Item: {fileID: 0}
     Audio: {fileID: 8300000, guid: 1949d2156f2d98e4cbbaeb6881189d05, type: 3}
     HeadAudio: {fileID: 8300000, guid: edb135f440b046d47948a5fff20b00db, type: 3}
   - Name: Rushia
     FullBody: {fileID: 21300000, guid: c35b1e7435d40a04c97f74f0f7fa5b82, type: 3}
-    Head: {fileID: 21300000, guid: 662d840e727c5fe4c985aeaeb79d4015, type: 3}
+    Head: {fileID: 21300000, guid: 1bf764eb31efecc4cac08c99802e3009, type: 3}
     Body: {fileID: 21300000, guid: f5eef93121c49a14e97c044dc1d12194, type: 3}
     Item: {fileID: 0}
     Audio: {fileID: 8300000, guid: 663b497d874626642864492399b66c8c, type: 3}
     HeadAudio: {fileID: 8300000, guid: 10fcd743461d4234d9cbf557328d3a51, type: 3}
   - Name: Watame
     FullBody: {fileID: 21300000, guid: ca0c223110f5e3540912311900d5c78f, type: 3}
-    Head: {fileID: 21300000, guid: 47fb94c0c1af6e04da63fd20950f42e7, type: 3}
+    Head: {fileID: 21300000, guid: 1bf764eb31efecc4cac08c99802e3009, type: 3}
     Body: {fileID: 21300000, guid: 530dbe1b840cd80468a56e180f309775, type: 3}
     Item: {fileID: 0}
     Audio: {fileID: 8300000, guid: 3c67880879a6e46468d878254dae9050, type: 3}

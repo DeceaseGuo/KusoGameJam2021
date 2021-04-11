@@ -179,8 +179,8 @@ public class VtuberManager : MonoBehaviour
     private void SetVtuberActive(VtuberInfo vtuberData)
     {
         vtuberData.IsDead = true;
-        vtuberData.Body.SetActive(true);
-        vtuberData.FullBody.SetActive(false);
+        //vtuberData.Body.SetActive(true);
+        vtuberData.FullBody.SetActive(true);
     }
 
     private void PlayBoold(ParticleSystem boold, float duration)
@@ -189,7 +189,7 @@ public class VtuberManager : MonoBehaviour
         {
             var main = boold.main;
             main.duration = duration > 0 ? duration : 0;
-            boold.Play();
+            //boold.Play();
         }
     }
 
