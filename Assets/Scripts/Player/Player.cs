@@ -233,9 +233,11 @@ public class Player : MonoBehaviour
         if (mCurHeadTransform != null)
         {
             Stage aAltar = iObj.GetComponent<Stage>();
+            Transform aCacheTransform = aAltar.HeadAttach();
             mCurHeadTransform.SetParent(null);
             mCurHeadTransform.GetComponent<CircleCollider2D>().enabled = false;
-            mCurHeadTransform.position = aAltar.HeadAttach().position;
+            mCurHeadTransform.SetParent(aCacheTransform);
+            mCurHeadTransform.position = aCacheTransform.position;
             mCurHeadTransform.rotation = Quaternion.identity;
             StopHeadAudio();
             mCurHeadTransform = null;
@@ -280,5 +282,12 @@ public class Player : MonoBehaviour
         mRig.velocity = Vector2.zero;
         mAnim.SetFloat(State.RUN.ToString(), -1);
         ChangeStep(State.IDLE);
+    }
+
+    public void GoDie()
+    {
+        ThrowHead();
+        ReturnIDLE();
+        ChangeStep(State.DIE);
     }
 }
