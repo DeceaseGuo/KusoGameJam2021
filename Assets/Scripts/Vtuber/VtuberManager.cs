@@ -38,7 +38,7 @@ public class VtuberManager : MonoBehaviour
         _headAudioDic = VtuberSpriteInfos.ToDictionary(data => data.Name, data => data.HeadAudio);
     }
 
-    private void Start()
+    public void StartSpawn()
     {
         _spawnCoroutine = StartCoroutine(SpawnTimer(SpawnIntervals));
     }
