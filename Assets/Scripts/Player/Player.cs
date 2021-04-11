@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
     private State mCurState = State.IDLE;
 
     public AudioSource mAudio = null;
+    public AudioSource mHeadAudio = null;
     public float mMoveSpeed = 0;    
     [Header("使用道具僵直")]
     public float mUseItemStiff = 0;
@@ -48,6 +49,7 @@ public class Player : MonoBehaviour
         StateAction();
     }
 
+    #region Step
     private void StateAction()
     {
         switch (mCurState)
@@ -124,36 +126,93 @@ public class Player : MonoBehaviour
             ChangeStep(State.USEITEM);
         }
     }
+    #endregion
 
     private void OnTriggerEnter2D(Collider2D iOther)
     {
         if (mCurState == State.ATTACK)
         {
-            VtuberInfo aVtuberInfo = iOther.GetComponent<VtuberInfo>();
-            if (aVtuberInfo != null)
+            if (iOther.gameObject.CompareTag("Vtuber"))
             {
-                if (!string.IsNullOrEmpty(mHaedName))//有頭在手上情況
-                {
-                    Vector3 aCurPos = mCurHeadTransform.position;
-                    mCurHeadTransform.SetParent(null);
-                    mCurHeadTransform.position = aCurPos;
-                }
-
-                HeadPerform aHeadPerform = aVtuberInfo.Head.GetComponent<HeadPerform>();
-                mHaedName = aVtuberInfo.Head.name;
-                VtuberManager.Instance.TouchPlayer(aVtuberInfo);
-                aHeadPerform.ExeCute(() =>
-                {
-                    mCurHeadTransform = aVtuberInfo.Head.transform;
-                    mCurHeadTransform.SetParent(mHeadPos);
-                    mCurHeadTransform.localPosition = Vector3.zero;
-                        //mCurHeadTransform.DOMove(Vector3.zero, .5f);
-                    });
-                mItemCount++;
+                TriggerVtuber(iOther.gameObject);
             }
+        }
+
+        if (iOther.gameObject.CompareTag("VtuberHead"))
+        {
+            TriggerVtuberHead(iOther.gameObject);
         }
     }
 
+    #region TriggerEnterObj
+    private void TriggerVtuber(GameObject iObj)
+    {
+        VtuberInfo aVtuberInfo = iObj.GetComponent<VtuberInfo>();
+        if (aVtuberInfo != null)
+        {
+            if (!string.IsNullOrEmpty(mHaedName))//有頭在手上情況
+            {
+                ThrowHead();
+            }
+
+            HeadPerform aHeadPerform = aVtuberInfo.Head.GetComponent<HeadPerform>();
+            mHaedName = aVtuberInfo.Head.name;
+            VtuberManager.Instance.TouchPlayer(aVtuberInfo);
+            aHeadPerform.ExeCute(() =>
+            {
+                SetHead(aVtuberInfo.Head.transform);
+            });
+            mItemCount++;
+        }
+    }
+    private void TriggerVtuberHead(GameObject iObj)
+    {
+        if (mCurHeadTransform == null)//手上沒頭
+        {
+            mHaedName = iObj.name;
+            SetHead(iObj.transform);
+        }
+        else//手上有頭
+        {
+            if (mHaedName != iObj.name)//頭不一樣交換
+            {
+                ThrowHead();
+                mHaedName = iObj.name;
+                SetHead(iObj.transform);
+            }
+        }
+    }
+    #endregion
+
+    #region Head
+    private void SetHead(Transform iHeadT)
+    {
+        mCurHeadTransform = iHeadT;
+        mCurHeadTransform.SetParent(mHeadPos);
+        mCurHeadTransform.localPosition = Vector3.zero;
+        PlayHeadAudio();
+        //mCurHeadTransform.DOMove(Vector3.zero, .5f);
+    }
+    private void ThrowHead()
+    {
+        Vector3 aCurPos = mCurHeadTransform.position;
+        mCurHeadTransform.SetParent(null);
+        mCurHeadTransform.position = aCurPos;
+        StopHeadAudio();
+    }
+    private void PlayHeadAudio()
+    {
+        if (!string.IsNullOrEmpty(mHaedName))
+        {
+            mHeadAudio.clip = VtuberManager.Instance.GetHeadAudio(mHaedName);
+            mHeadAudio.Play();
+        }
+    }
+    private void StopHeadAudio()
+    {
+        mHeadAudio.Stop();
+    }
+    #endregion
     private void SetAtkDirection()
     {
         mAtkDirection = (Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position)).normalized;
