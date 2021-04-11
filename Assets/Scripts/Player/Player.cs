@@ -235,7 +235,8 @@ public class Player : MonoBehaviour
             Stage aAltar = iObj.GetComponent<Stage>();
             Transform aCacheTransform = aAltar.HeadAttach();
             mCurHeadTransform.SetParent(null);
-            mCurHeadTransform.GetComponent<CircleCollider2D>().enabled = false;
+            CircleCollider2D aCollider = mCurHeadTransform.GetComponent<CircleCollider2D>();
+            Destroy(aCollider);
             mCurHeadTransform.SetParent(aCacheTransform);
             mCurHeadTransform.position = aCacheTransform.position;
             mCurHeadTransform.rotation = Quaternion.identity;
