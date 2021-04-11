@@ -11,11 +11,6 @@ public class Stage : MonoBehaviour
     public AudioSource mAudio = null;
     private System.Action mVideoFinishAction = null;
 
-    private void Start()
-    {
-        PlayWinVideo(null);
-    }
-
     public void PlayWinVideo(System.Action iFinishAction)
     {
         if (mWinVideo)
