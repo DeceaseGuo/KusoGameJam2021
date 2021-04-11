@@ -122,6 +122,7 @@ public class GameFlow : MonoBehaviour
         m_AudioSource.Play();
         ActivateAllEnemy(false);
         m_PlayerRole.GoDie();
+        m_PlayerRole.enabled = false;
         CancelInvoke();
     }
 

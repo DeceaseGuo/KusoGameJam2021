@@ -18,14 +18,14 @@ public class Player : MonoBehaviour
     public AudioSource mAudio = null;
     public AudioSource mHeadAudio = null;
     public float mMoveSpeed = 0;
-    [Header("¨Ï¥Î¹D¨ã»øª½")]
+    [Header("ï¿½Ï¥Î¹Dï¿½ï¿½ï¿½ï¿½ï¿½")]
     public float mUseItemStiff = 0;
     public GameObject mOilSpout = null;
     public GameObject mOilTrap = null;
-    [Header("¦ì²¾")]
+    [Header("ï¿½ì²¾")]
     public float mDashStiff = 0;
     public float mDashSpeed = 0;
-    [Header("ÀY")]
+    [Header("ï¿½Y")]
     public Transform mHeadPos = null;
 
     private bool mIsRight = false;
@@ -163,7 +163,7 @@ public class Player : MonoBehaviour
         VtuberInfo aVtuberInfo = iObj.GetComponent<VtuberInfo>();
         if (aVtuberInfo != null && !aVtuberInfo.IsDead)
         {
-            if (!string.IsNullOrEmpty(mHaedName))//¦³ÀY¦b¤â¤W±¡ªp
+            if (!string.IsNullOrEmpty(mHaedName))//ï¿½ï¿½ï¿½Yï¿½bï¿½ï¿½Wï¿½ï¿½ï¿½p
             {
                 ThrowHead();
             }
@@ -180,14 +180,14 @@ public class Player : MonoBehaviour
     }
     private void TriggerVtuberHead(GameObject iObj)
     {
-        if (mCurHeadTransform == null)//¤â¤W¨SÀY
+        if (mCurHeadTransform == null)//ï¿½ï¿½Wï¿½Sï¿½Y
         {
             mHaedName = iObj.name;
             SetHead(iObj.transform);
         }
-        else//¤â¤W¦³ÀY
+        else//ï¿½ï¿½Wï¿½ï¿½ï¿½Y
         {
-            if (mHaedName != iObj.name)//ÀY¤£¤@¼Ë¥æ´«
+            if (mHaedName != iObj.name)//ï¿½Yï¿½ï¿½ï¿½@ï¿½Ë¥æ´«
             {
                 ThrowHead();
                 mHaedName = iObj.name;
@@ -208,7 +208,7 @@ public class Player : MonoBehaviour
         mCurHeadTransform.position = mHeadPos.position;
         mCurHeadTransform.SetParent(mHeadPos);
         mCurHeadTransform.localPosition = Vector3.zero;
-        mCurHeadTransform.GetComponent<CircleCollider2D>().enabled = false;
+        //mCurHeadTransform.GetComponent<CircleCollider2D>().enabled = false;
         PlayHeadAudio();
     }
     private void ThrowHead()
