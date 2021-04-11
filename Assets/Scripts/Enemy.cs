@@ -66,13 +66,15 @@ public class Enemy : MonoBehaviour
         m_SpriteRenderer = GetComponent<SpriteRenderer>();
         m_Animator = GetComponent<Animator>();
         m_oMoveRB2D = GetComponent<Rigidbody2D>();
-        ActivateObject(true);
-        AddBuff(EEnemyBuff.eSlow, 1.0f, 10.0f);
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(!m_bActivate)
+        {
+            return;
+        }
         ResetBuff();
         m_Animator.SetFloat("Speed", m_oMoveRB2D.velocity.magnitude);
         if(m_eState == EEnemyState.eAttacking || m_eState == EEnemyState.eDie || m_eState == EEnemyState.eReadyToAttack)
