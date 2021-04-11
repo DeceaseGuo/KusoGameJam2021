@@ -1,12 +1,29 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Video;
 
 public class Stage : MonoBehaviour
 {
+    public VideoPlayer mWinVideo = null;
     public Transform[] m_HeadStage;
-
     public int m_CurrentPoint;
+
+    private System.Action mVideoFinishAction = null;
+
+    public void PlayWinVideo(System.Action iFinishAction)
+    {
+        if (!mWinVideo.isPlaying)
+        {
+            mVideoFinishAction = iFinishAction;
+            mWinVideo.gameObject.SetActive(true);
+            mWinVideo.Play();
+            mWinVideo.loopPointReached += WinVideoFinish;
+        }
+    }
+
+    private void WinVideoFinish(VideoPlayer iPlayer)
+    {
+        mVideoFinishAction?.Invoke();
+    }
 
     public Transform HeadAttach()
     {
