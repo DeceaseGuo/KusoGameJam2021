@@ -117,6 +117,12 @@ public class VtuberManager : MonoBehaviour
     #region Touch
     public void TouchPlayer(VtuberInfo vtuberData)
     {
+        if (vtuberData.IsDead)
+        {
+            return;
+        }
+
+        vtuberData.IsDead = true;
         vtuberData.Body.SetActive(true);
         vtuberData.FullBody.SetActive(false);
 
