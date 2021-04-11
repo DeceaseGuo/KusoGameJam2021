@@ -83,22 +83,22 @@ MonoBehaviour:
     Head: {fileID: 21300000, guid: ac5abd8d1abb1dc468bc9032bb5d14ea, type: 3}
     Body: {fileID: 21300000, guid: cb7409312bb7db9448e745aee05989b7, type: 3}
     Item: {fileID: 0}
-    Audio: {fileID: 0}
-    HeadAudio: {fileID: 0}
+    Audio: {fileID: 8300000, guid: 92d2c2de7537ea54e9aeda7e7179d9f0, type: 3}
+    HeadAudio: {fileID: 8300000, guid: 9ea760009673e254fb766d9a7084e4fc, type: 3}
   - Name: Korone
     FullBody: {fileID: 21300000, guid: c423f5bccdc63ae4e89c8d7a9de9371c, type: 3}
     Head: {fileID: 21300000, guid: 500bd5975f789284d943c61be1559f4b, type: 3}
     Body: {fileID: 21300000, guid: a69f1980c32665e49a0b4f0965381bb5, type: 3}
     Item: {fileID: 0}
-    Audio: {fileID: 0}
-    HeadAudio: {fileID: 0}
+    Audio: {fileID: 8300000, guid: 6d8caf82ddcd4ad4d9c73c34461dac56, type: 3}
+    HeadAudio: {fileID: 8300000, guid: 4877c9aa6146e8048bec48e9ffb693c3, type: 3}
   - Name: Lamy
     FullBody: {fileID: 21300000, guid: 3e95a467f32731e4c86a371078773891, type: 3}
     Head: {fileID: 21300000, guid: fdbd5375d1fd3f84ca43ff3f629b9b51, type: 3}
     Body: {fileID: 21300000, guid: 9adc5923ee9c62849abfe911f38b5507, type: 3}
     Item: {fileID: 0}
-    Audio: {fileID: 0}
-    HeadAudio: {fileID: 0}
+    Audio: {fileID: 8300000, guid: 0a8c0864d61653a47905e05530c67e9e, type: 3}
+    HeadAudio: {fileID: 8300000, guid: da9580a13675bb3428f55098cbdb59f6, type: 3}
   - Name: Noeru
     FullBody: {fileID: 21300000, guid: 4d9df9f7a40c0d342bf1342114a5bafa, type: 3}
     Head: {fileID: 21300000, guid: 8fa6e46f5ceb7a44fac02b9cde15b31a, type: 3}
