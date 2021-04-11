@@ -27,17 +27,19 @@ public class VtuberManager : MonoBehaviour
 
     private Dictionary<string, AudioClip> _headAudioDic;
     private Dictionary<Transform, GameObject> _spawnVtuberDic;
+    private AudioSource _audioSource;
 
     private void Awake()
     {
         Instance = this;
         _random = new System.Random();
 
+        _audioSource = GetComponent<AudioSource>();
+
         _vtuberSpriteList = VtuberSpriteInfos.ToList();
         _headAudioDic = VtuberSpriteInfos.ToDictionary(data => data.Name, data => data.HeadAudio);
 
         _spawnVtuberDic = new Dictionary<Transform, GameObject>();
-
         for (int i = 0; i < SpawnPoints.Length; i++)
         {
             var spawnPoint = SpawnPoints[i];
@@ -80,6 +82,13 @@ public class VtuberManager : MonoBehaviour
                 var newVtuberSprite = GetNewVtuberSprite();
                 var spawnPos = GetOffsetSpawnPos(spawnPoint);
                 var newVtuber = SpawnVtuber(newVtuberSprite, spawnPos);
+
+                _audioSource.clip = newVtuberSprite.Audio;
+                if (_audioSource.isPlaying)
+                {
+                    _audioSource.Stop();
+                }
+                _audioSource.Play();
 
                 _spawnVtuberDic[spawnPoint] = newVtuber;
                 _sceneVtubersCount++;
@@ -143,7 +152,6 @@ public class VtuberManager : MonoBehaviour
         vtuberData.FullBody.GetComponent<SpriteRenderer>().sprite = newVtuberSprite.FullBody;
         vtuberData.Head.GetComponent<SpriteRenderer>().sprite = newVtuberSprite.Head;
         vtuberData.Body.GetComponent<SpriteRenderer>().sprite = newVtuberSprite.Body;
-        vtuberData.GetComponent<AudioSource>().clip = newVtuberSprite.Audio;
 
         vtuberData.Head.name = newVtuberSprite.Name;
 
@@ -161,22 +169,29 @@ public class VtuberManager : MonoBehaviour
             return;
         }
 
+        SetVtuberActive(vtuberData);
+
+        PlayBoold(vtuberData.Boold, VtuberDeadDelay - 0.05f);
+
+        Destroy(vtuberData.gameObject, VtuberDeadDelay);
+        _sceneVtubersCount--;
+    }
+
+    private void SetVtuberActive(VtuberInfo vtuberData)
+    {
         vtuberData.IsDead = true;
         vtuberData.Body.SetActive(true);
         vtuberData.FullBody.SetActive(false);
+    }
 
-        var boold = vtuberData.Boold;
-        var duration = VtuberDeadDelay - 0.3f;
-
+    private void PlayBoold(ParticleSystem boold, float duration)
+    {
         if (!boold.isPlaying)
         {
             var main = boold.main;
             main.duration = duration > 0 ? duration : 0;
             boold.Play();
         }
-
-        Destroy(vtuberData.gameObject, VtuberDeadDelay);
-        _sceneVtubersCount--;
     }
 
     public AudioClip GetHeadAudio(string vtuberName)
